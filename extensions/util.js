@@ -1,5 +1,9 @@
-// Uncomment to use convenience libraries in extensions:
-// var _ = require('underscore')._;
-// var Mustache = require('mustache');
+// WARNING: this version untested
+ 
+var _ = exports._ = require('underscore')._;
 
-exports.render_if = require('render_if').render_if;
+// Uncomment to use convenience libraries in extensions:
+_(exports).extend(
+//  { Mustache: require('mustache') },
+  require('render_if')
+)
