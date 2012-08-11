@@ -1,9 +1,9 @@
 var tests = {
   /* Add any custom tests (conditions) here
    * Params can be passed from templates in the form
-   * 
+   *
    *    <pop:util:render_if my_condition="something special"
-   *    
+   *
    * to run tests['my_condition']('something special', scope)
    * where scope is the current Webpop template context.
    *
@@ -23,7 +23,7 @@ var tests = {
   /**
    * Checks a collection for specified quantity of items
    * @param  {string} input - expects a comparison statement
-   *   in the form 
+   *   in the form
    *
    *     '[<operator>][ ]<integer>[ ]<collection_identifier>'
    *
@@ -32,9 +32,9 @@ var tests = {
    *
    *
    * @param {object} scope - current Webpop template scope
-   *           
+   *
    * Example invocation: '<pop:util:render_if contains=">4 photos">...</pop:util:render_if>
-   *   
+   *
    * @return {boolean} - true if the number of items in the collection matches the given criteria.
    */
   contains: function(input, scope) {
@@ -57,8 +57,8 @@ var tests = {
 }
 
 exports.render_if = function(params, enclosed, scope) {
-  var do_render = true;
-  for (var key in params) do_render &= tests[key] && tests[key](params[key], scope);
+  var ret = true;
+  for (var key in params) ret &= tests[key] && tests[key](params[key], scope);
 
-  return !!do_render && enclosed.render();
+  return !!ret;
 }
