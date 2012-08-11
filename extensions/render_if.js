@@ -62,3 +62,7 @@ exports.render_if = function(params, enclosed, scope) {
 
   return !!ret;
 }
+
+exports.render_if_not = function(params, enclosed, scope) {
+  return !exports.render_if(params, enclosed, scope);
+}
