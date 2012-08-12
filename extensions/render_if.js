@@ -1,3 +1,14 @@
+/**
+ * <pop:render_if:render_if [test]="value" /> (and inverse <pop:render_if:render_if_not [test]="value" />)
+ * @string {test}  Can name a property of the tests object (below--which must indicate match or
+ *                 not by returning a boolean value).
+ *                 Otherwise, it must be a property of the current section in template scope.
+ *
+ * @string {value} The value for {test} to compare against
+ *                 For a custom test function, the value will passed in to the function.
+ *                 For a section property, will be checked for exact match
+ */
+
 var tests = {
   /* Add any custom tests (conditions) here
    * Params can be passed from templates in the form
@@ -17,7 +28,9 @@ var tests = {
    * @return {boolean} - true if the current section matches the parameter.
    */
   section: function(titleOrSlug) {
-    return titleOrSlug === section.slug || titleOrSlug === section.title;
+    titleOrSlug = titleOrSlug.split(',');
+    return titleOrSlug.indexOf(section.slug) > -1 ||
+           titleOrSlug.indexOf(section.title) > -1;
   },
 
   /**
@@ -58,7 +71,13 @@ var tests = {
 
 exports.render_if = function(params, enclosed, scope) {
   var ret = true;
-  for (var key in params) ret &= tests[key] && tests[key](params[key], scope);
+  for (var key in params) {
+    if (ret) {
+      if (tests[key]) ret &= tests[key](params[key], scope);
+      else if (section[key]) ret &= (section[key] === params[key]);
+      else ret = false;
+    }
+  }
 
   return !!ret;
 }
