@@ -13,3 +13,16 @@ _(exports).extend(
   require('render_if'),
   require('site_util')
 )
+
+exports.parent_category = function(options, enclosed, scope) {
+  var path = request.path.replace(/\/[^\/]+$/, '');
+  var categories = site.categories({from: scope.lookup('section').id});
+
+  for (var i = 0, l = categories.length; i < l; i++) {
+    if (path === categories[i].permalink) {
+      return categories[i];
+    }
+  }
+
+  return null;
+}
