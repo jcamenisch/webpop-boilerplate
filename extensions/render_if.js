@@ -29,8 +29,8 @@ var tests = {
    */
   section: function(titleOrSlug) {
     titleOrSlug = titleOrSlug.split(',');
-    return titleOrSlug.indexOf(section.slug) > -1 ||
-           titleOrSlug.indexOf(section.title) > -1;
+    var section = site.content().section;
+    return titleOrSlug.indexOf(section.slug) > -1 || titleOrSlug.indexOf(section.title) > -1;
   },
 
   /**
