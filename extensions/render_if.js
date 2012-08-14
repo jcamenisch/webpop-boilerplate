@@ -82,6 +82,8 @@ exports.render_if = function(params, enclosed, scope) {
   return !!ret;
 }
 
-exports.render_if_not = function(params, enclosed, scope) {
+exports.render_unless = function(params, enclosed, scope) {
   return !exports.render_if(params, enclosed, scope);
-}
+};
+
+exports.render_if_not = exports.render_unless;
